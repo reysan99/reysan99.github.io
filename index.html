@@ -4,21 +4,59 @@
   <meta charset="utf-8">
   <title>Hello World</title>
   <link rel="manifest" href="/manifest.json">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style-with-prefix.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="apple-touch-icon" href="images/hello-icon-152.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="white"/>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Hello World">
+  <meta name="apple-mobile-web-app-title" content="Sample PWa">
   <meta name="msapplication-TileImage" content="images/hello-icon-144.png">
   <meta name="msapplication-TileColor" content="#FFFFFF">
 </head>
+
 <body class="fullscreen">
-  <div class="container">
-    <h1 class="title">PWA!</h1>
-  </div>
+  <div class="main-container">
+    <div class="form-container">
+
+        <!-- <div class="srouce"><a title="Learn How to create Beautiful HTML & CSS login page template" href="https://www.w3jar.com/beautiful-html-css-login-page-template/">W3jar.Com</a></div> -->
+
+        <div class="form-body">
+            <!-- <h2 class="title">Log in with</h2>
+            <div class="social-login">
+                <ul>
+                    <li class="google"><a href="#">Google</a></li>
+                    <li class="fb"><a href="#">Facebook</a></li>
+                </ul>
+            </div> -->
+            <!-- SOCIAL LOGIN -->
+
+            <!-- <div class="_or">or</div> -->
+
+            <form action="" class="the-form">
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email">
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password">
+
+                <input type="submit" value="Log In">
+
+            </form>
+
+        </div><!-- FORM BODY-->
+
+        <div class="form-footer">
+            <div>
+                <span>Don't have an account?</span> <a href="">Sign Up</a>
+            </div>
+        </div><!-- FORM FOOTER -->
+
+    </div><!-- FORM CONTAINER -->
+</div>
   <script src="js/main.js"></script>
 </body>
 </html>
