@@ -1,62 +1,108 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Hello World</title>
-  <link rel="manifest" href="/manifest.json">
-  <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./assets/css/style-with-prefix.css">
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="images/hello-icon-152.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="white"/>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Sample PWa">
-  <meta name="msapplication-TileImage" content="images/hello-icon-144.png">
-  <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Active Items</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            width: 80%;
+            margin: 20px auto;
+            background: #fff;
+        }
+        .header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .items {
+            display: flex;
+            justify-content: space-between;
+        }
+        .item {
+            text-align: center;
+            flex: 1;
+            padding: 15px;
+            border-radius: 5px;
+            background: #f9f9f9;
+            margin: 5px;
+        }
+        .item a {
+            text-decoration: none;
+            color: #000;
+        }
+        .icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .count {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch("https://dev271773.service-now.com/api/1518235/external_task/task", {
+                    method: "GET",
+                    headers: {
+                        "X-UserToken": "da57bd77832312107bd6f0d6feaad3b8d993c31a84c8461e2d9ac1eb0ded28b7d6fe84c0",
+                        "Accept": "application/json"
+                    }
+                });
+
+                const data = await response.json();
+                displayData(data.result);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        function displayData(result) {
+            const container = document.getElementById("items-container");
+            container.innerHTML = "";
+
+            // Combine primaryCountData and summaryCountData
+            const items = [...result.primaryCountData, ...result.summaryCountData];
+
+            items.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "item";
+
+                div.innerHTML = `
+                    <a href="${item.itemUrl}">
+                        <span class="icon">${getIconHTML(item.icon)}</span>
+                        <span>${item.itemName}</span>
+                        <div class="count">${item.itemCount} ></div>
+                    </a>
+                `;
+
+                container.appendChild(div);
+            });
+        }
+
+        function getIconHTML(iconClass) {
+            if (!iconClass) return "🔘";  // Default icon if missing
+            return `<i class="fa fa-${iconClass}"></i>`;
+        }
+
+        window.onload = fetchData;
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 </head>
-
-<body class="fullscreen">
-  <div class="main-container">
-    <div class="form-container">
-
-        <!-- <div class="srouce"><a title="Learn How to create Beautiful HTML & CSS login page template" href="https://www.w3jar.com/beautiful-html-css-login-page-template/">W3jar.Com</a></div> -->
-
-        <div class="form-body">
-            <!-- <h2 class="title">Log in with</h2>
-            <div class="social-login">
-                <ul>
-                    <li class="google"><a href="#">Google</a></li>
-                    <li class="fb"><a href="#">Facebook</a></li>
-                </ul>
-            </div> -->
-            <!-- SOCIAL LOGIN -->
-
-            <!-- <div class="_or">or</div> -->
-
-            <form action="" class="the-form">
-
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="Enter your email">
-
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="Enter your password">
-
-                <input type="submit" value="Log In">
-
-            </form>
-
-        </div><!-- FORM BODY-->
-
-        <div class="form-footer">
-            <div>
-                <span>Don't have an account?</span> <a href="">Sign Up</a>
-            </div>
-        </div><!-- FORM FOOTER -->
-
-    </div><!-- FORM CONTAINER -->
-</div>
-  <script src="js/main.js"></script>
+<body>
+    <div class="container">
+        <div class="header">My Active Items</div>
+        <div class="items" id="items-container">
+            Loading...
+        </div>
+    </div>
 </body>
 </html>
